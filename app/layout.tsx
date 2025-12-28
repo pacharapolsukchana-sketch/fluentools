@@ -1,0 +1,49 @@
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Free Online Calculators - Mortgage, BMI, Loan & More | Fluentools",
+  description: "Free online calculators for mortgage, BMI, loan, discount, tip, and more. Fast, accurate, and private. No registration required.",
+  keywords: "free calculator, online calculator, mortgage calculator, BMI calculator, loan calculator, discount calculator, tip calculator",
+  authors: [{ name: "Fluentools" }],
+  openGraph: {
+    title: "Free Online Calculators - Mortgage, BMI, Loan & More",
+    description: "Fast, accurate, and free online calculators. No registration required.",
+    type: "website",
+    locale: "en_US",
+    siteName: "Fluentools",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Online Calculators | Fluentools",
+    description: "Fast, accurate, and free online calculators. No registration required.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <head>
+        <link rel="canonical" href="https://fluentools.com" />
+      </head>
+      <body className="antialiased">
+        {children}
+      </body>
+    </html>
+  );
+}
