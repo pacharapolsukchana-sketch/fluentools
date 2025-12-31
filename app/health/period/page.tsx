@@ -145,7 +145,7 @@ export default function PeriodCalculator() {
 
             <div className="grid grid-cols-2 gap-3 mb-2">
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">🔄 Cycle Length (days)</label>
+                <label className="block text-sm font-bold text-gray-700 mb-2">🔄 Cycle Length</label>
                 <input 
                   type="number" 
                   value={cycleDays} 
@@ -158,7 +158,7 @@ export default function PeriodCalculator() {
                 <p className="text-xs text-gray-500 mt-1">Average: 28 days</p>
               </div>
               <div>
-                <label className="block text-sm font-bold text-gray-700 mb-2">🩸 Period Duration (days)</label>
+                <label className="block text-sm font-bold text-gray-700 mb-2">🩸 Period Days</label>
                 <input 
                   type="number" 
                   value={periodDays} 

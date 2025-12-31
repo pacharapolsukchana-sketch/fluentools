@@ -129,7 +129,6 @@ export default function CurrencyConverter() {
   useEffect(() => {
     const fetchRates = async () => {
       try {
-        // ใช้ ExchangeRate-API (แม่นยำกว่า, ฟรี 100%)
         const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD')
         const data = await response.json()
         
@@ -160,13 +159,12 @@ export default function CurrencyConverter() {
         }))
         setLoading(false)
       } catch (error) {
-        // Fallback rates (อัปเดตให้ตรงกับ Google)
         setRates({ 
           USD: 1, 
           EUR: 0.92, 
           GBP: 0.79, 
           JPY: 149.50, 
-          THB: 31.07, // ✅ แก้จาก 35.50 → 31.07
+          THB: 31.07,
           CNY: 7.24, 
           AUD: 1.52, 
           CAD: 1.36,
@@ -185,7 +183,7 @@ export default function CurrencyConverter() {
     }
     
     fetchRates()
-    const interval = setInterval(fetchRates, 60000) // อัปเดตทุก 1 นาที
+    const interval = setInterval(fetchRates, 60000)
     return () => clearInterval(interval)
   }, [])
 
@@ -287,9 +285,9 @@ export default function CurrencyConverter() {
             <div className="mb-6">
               <label className="block text-sm font-bold text-gray-700 mb-3">💸 Amount</label>
               <input
-                type="number"
-                value={fromValue}
-                onChange={(e) => setFromValue(e.target.value)}
+                type="text"
+                value={fromValue ? parseFloat(fromValue).toLocaleString() : ''}
+                onChange={(e) => setFromValue(e.target.value.replace(/,/g, ''))}
                 placeholder="100"
                 className="w-full px-6 py-4 text-3xl font-bold text-gray-900 bg-gray-50 border-2 border-gray-300 rounded-xl focus:border-green-500 focus:ring-4 focus:ring-green-100 outline-none transition-all shadow-sm"
               />
@@ -321,13 +319,13 @@ export default function CurrencyConverter() {
               <div className="mt-8 p-6 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl shadow-lg">
                 <div className="text-center text-white">
                   <div className="text-sm font-semibold opacity-90 mb-2">You get</div>
-                  <div className="flex items-center justify-center gap-4 mb-3">
-                    <span className="text-5xl md:text-6xl font-black">
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-3">
+                    <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black break-all">
                       {formatNumber(convertedValue)}
                     </span>
                     <FlagIcon code={toCurrency} />
                   </div>
-                  <div className="text-xl font-bold opacity-95">
+                  <div className="text-lg sm:text-xl font-bold opacity-95">
                     {toCurrency} • {currencies[toCurrency].name}
                   </div>
                 </div>
@@ -335,14 +333,14 @@ export default function CurrencyConverter() {
             )}
 
             {exchangeRate && (
-              <div className="mt-6 flex items-center justify-between p-4 bg-blue-50 border-l-4 border-blue-500 rounded-lg">
+              <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-lg">
                 <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="w-5 h-5 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                   </svg>
                   <span className="text-sm font-semibold text-gray-700">Exchange Rate</span>
                 </div>
-                <span className="text-sm font-bold text-gray-900">
+                <span className="text-sm font-bold text-gray-900 break-all">
                   1 {fromCurrency} = {formatNumber(exchangeRate)} {toCurrency}
                 </span>
               </div>
@@ -372,14 +370,14 @@ export default function CurrencyConverter() {
                         : 'bg-gray-50 border-2 border-gray-200 hover:border-green-300 hover:bg-green-50'
                     }`}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
                       <FlagIcon code={conv.code} />
-                      <div className="text-left">
+                      <div className="text-left min-w-0">
                         <div className="font-bold text-sm text-gray-900">{conv.code}</div>
-                        <div className="text-xs text-gray-600">{conv.name}</div>
+                        <div className="text-xs text-gray-600 truncate">{conv.name}</div>
                       </div>
                     </div>
-                    <div className={`font-bold text-lg ${conv.code === toCurrency ? 'text-green-700' : 'text-gray-900'}`}>
+                    <div className={`font-bold text-base sm:text-lg ml-2 break-all text-right ${conv.code === toCurrency ? 'text-green-700' : 'text-gray-900'}`}>
                       {formatNumber(conv.value)}
                     </div>
                   </button>

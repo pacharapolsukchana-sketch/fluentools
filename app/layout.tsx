@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import GoogleAnalytics from '@/app/components/GoogleAnalytics'
 
 export const metadata: Metadata = {
   title: "Free Online Calculators - Mortgage, BMI, Loan & More | Fluentools",
@@ -39,7 +40,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* PERFORMANCE OPTIMIZATION: Preconnect to external domains */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        
+        {/* Canonical URL */}
         <link rel="canonical" href="https://fluentools.com" />
+        
+        {/* Google Analytics */}
+        <GoogleAnalytics />
       </head>
       <body className="antialiased">
         {children}

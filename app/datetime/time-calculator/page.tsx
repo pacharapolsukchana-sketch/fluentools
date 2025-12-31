@@ -547,9 +547,9 @@ export default function TimeCalculator() {
                       <div className="text-sm opacity-90">{selectedZone.city}</div>
                     </div>
 
-                    <div className="bg-gray-50 rounded-xl border-2 border-gray-200 p-4 max-h-80 overflow-y-auto">
-                      <h3 className="text-sm font-bold text-gray-900 mb-3 sticky top-0 bg-gray-50 pb-2">🌍 World Times</h3>
-                      <div className="space-y-2">
+                    <div className="bg-gray-50 rounded-xl border-2 border-gray-200 max-h-80 overflow-y-auto">
+                      <h3 className="text-sm font-bold text-gray-900 sticky top-0 bg-gray-50 z-10 p-4 pb-2 border-b-2 border-gray-200">🌍 World Times</h3>
+                      <div className="space-y-2 px-4 pb-4 pt-2">
                         {timeZoneConversions
                           .filter(c => c.zone.popular)
                           .map((conv) => (
@@ -577,7 +577,7 @@ export default function TimeCalculator() {
                           ))}
                       </div>
                       
-                      <details className="mt-3">
+                      <details className="px-4 pb-4">
                         <summary className="text-xs font-bold text-gray-600 cursor-pointer hover:text-gray-900">
                           Show more cities ({otherZones.length})
                         </summary>

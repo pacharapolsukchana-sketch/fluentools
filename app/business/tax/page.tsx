@@ -239,10 +239,10 @@ export default function TaxCalculator() {
                     💰 Annual Gross Income ($)
                   </label>
                   <input
-                    type="number"
-                    value={income}
-                    onChange={(e) => setIncome(e.target.value)}
-                    placeholder="50000"
+                    type="text"
+                    value={income ? parseInt(income).toLocaleString() : ''}
+                    onChange={(e) => setIncome(e.target.value.replace(/,/g, ''))}
+                    placeholder="50,000"
                     className="w-full px-4 py-3 text-base font-medium text-gray-600 border-2 border-gray-300 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition"
                   />
                 </div>
@@ -277,9 +277,9 @@ export default function TaxCalculator() {
                     💵 Price ($)
                   </label>
                   <input
-                    type="number"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
+                    type="text"
+                    value={price ? parseFloat(price).toLocaleString() : ''}
+                    onChange={(e) => setPrice(e.target.value.replace(/,/g, ''))}
                     placeholder="100"
                     className="w-full px-4 py-3 text-base font-medium text-gray-600 border-2 border-gray-300 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition"
                   />

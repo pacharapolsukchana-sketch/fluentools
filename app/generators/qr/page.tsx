@@ -10,25 +10,90 @@ export default function QRGenerator() {
   const [text, setText] = useState('')
   const [qrCode, setQrCode] = useState('')
   const [size, setSize] = useState('256')
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [isGenerating, setIsGenerating] = useState(false)
+  const imgRef = useRef<HTMLImageElement>(null)
 
   const relatedTools = getSmartRelatedTools('qr', 3)
 
   const generateQR = () => {
     if (!text) return
     
+    setIsGenerating(true)
     const qrSize = parseInt(size) || 256
     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(text)}`
     setQrCode(qrUrl)
   }
 
-  const downloadQR = () => {
-    if (!qrCode) return
+  const downloadQR = async () => {
+    if (!qrCode || !imgRef.current) return
     
-    const link = document.createElement('a')
-    link.href = qrCode
-    link.download = 'qrcode.png'
-    link.click()
+    try {
+      const img = imgRef.current
+      const qrSize = parseInt(size)
+      
+      // Create canvas with padding for frame + extra white space
+      const framePadding = 40  // padding inside frame
+      const whitePadding = 30  // extra white space outside frame
+      const totalPadding = framePadding + whitePadding
+      
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return
+
+      canvas.width = qrSize + (framePadding * 2) + (whitePadding * 2)
+      canvas.height = qrSize + (framePadding * 2) + (whitePadding * 2)
+
+      // Draw outer white background
+      ctx.fillStyle = '#FFFFFF'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      // Draw black border with rounded corners (with offset for white padding)
+      ctx.strokeStyle = '#000000'
+      ctx.lineWidth = 8
+      ctx.beginPath()
+      ctx.roundRect(whitePadding + 4, whitePadding + 4, 
+                    qrSize + (framePadding * 2) - 8, 
+                    qrSize + (framePadding * 2) - 8, 
+                    20)  // radius for rounded corners
+      ctx.stroke()
+
+      // Draw shadow
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.1)'
+      ctx.shadowBlur = 10
+      ctx.shadowOffsetX = 0
+      ctx.shadowOffsetY = 2
+
+      // Draw QR code
+      ctx.drawImage(img, totalPadding, totalPadding, qrSize, qrSize)
+
+      // Reset shadow
+      ctx.shadowColor = 'transparent'
+      ctx.shadowBlur = 0
+      ctx.shadowOffsetX = 0
+      ctx.shadowOffsetY = 0
+
+      // Add small text at bottom (centered in frame)
+      ctx.fillStyle = '#6B7280'
+      ctx.font = '10px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+      ctx.textAlign = 'center'
+      ctx.fillText('Scan Me', canvas.width / 2, canvas.height - totalPadding + 28)
+
+      // Convert to blob and download
+      canvas.toBlob((blob) => {
+        if (!blob) return
+        
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = url
+        link.download = `qrcode-framed-${Date.now()}.png`
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+      }, 'image/png')
+    } catch (error) {
+      console.error('Download failed:', error)
+    }
   }
 
   // SEO Schemas
@@ -80,8 +145,8 @@ export default function QRGenerator() {
           },
           {
             icon: '🎨',
-            title: 'Customizable Size',
-            description: 'Generate QR codes from 128px to 512px'
+            title: 'Beautiful Frame',
+            description: 'Download with professional gradient frame'
           },
           {
             icon: '💾',
@@ -126,7 +191,7 @@ export default function QRGenerator() {
           <div>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">How to Create QR Codes</h2>
             <p className="text-gray-700 mb-4">
-              Enter any text, URL, or information you want to encode. Select your desired size (128px-512px). Click Generate to create your QR code instantly. Download as PNG for use in print or digital materials.
+              Enter any text, URL, or information you want to encode. Select your desired size (128px-512px). Click Generate to create your QR code instantly. Download as PNG with beautiful frame for use in print or digital materials.
             </p>
 
             <h3 className="text-xl font-bold text-gray-900 mb-3 mt-6">QR Code Use Cases</h3>
@@ -179,15 +244,15 @@ export default function QRGenerator() {
 
             <button
               onClick={generateQR}
-              disabled={!text}
+              disabled={!text || isGenerating}
               className="w-full py-4 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-bold rounded-xl shadow-lg transition-all text-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              📱 Generate QR Code
+              {isGenerating ? '⏳ Generating...' : '📱 Generate QR Code'}
             </button>
 
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-400 p-4 rounded">
               <p className="text-sm text-gray-700">
-                <strong>Tip:</strong> Keep URLs short for better scannability. Test before printing.
+                <strong>✨ New!</strong> Download includes professional gradient frame with "Scan Me" text
               </p>
             </div>
 
@@ -211,15 +276,30 @@ export default function QRGenerator() {
             {qrCode ? (
               <>
                 <div className="bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl p-6 text-white shadow-lg">
-                  <div className="text-xs font-semibold opacity-90 mb-3">Your QR Code</div>
-                  <div className="bg-white rounded-lg p-6 mb-4 flex items-center justify-center">
-                    <img src={qrCode} alt="QR Code" className="max-w-full h-auto" />
+                  <div className="text-xs font-semibold opacity-90 mb-3">Your QR Code Preview</div>
+                  
+                  {/* Preview with Frame - CHANGED TO BLACK */}
+                  <div className="bg-white rounded-lg p-2 mb-4">
+                    <div className="relative border-[8px] border-black rounded-lg bg-white">
+                      <div className="bg-white p-4 rounded shadow-sm flex items-center justify-center flex-col">
+                        <img 
+                          ref={imgRef}
+                          src={qrCode} 
+                          alt="QR Code" 
+                          className="max-w-full h-auto"
+                          crossOrigin="anonymous"
+                          onLoad={() => setIsGenerating(false)}
+                        />
+                        <p className="text-[8px] text-gray-500 mt-2">Scan Me</p>
+                      </div>
+                    </div>
                   </div>
+
                   <button
                     onClick={downloadQR}
                     className="w-full py-3 bg-white text-blue-600 font-bold rounded-lg hover:bg-gray-100 transition-all"
                   >
-                    💾 Download PNG
+                    💾 Download with Frame
                   </button>
                 </div>
 
@@ -227,16 +307,20 @@ export default function QRGenerator() {
                   <h3 className="text-sm font-bold text-gray-900 mb-3">📊 QR Details</h3>
                   <div className="space-y-2 text-sm text-gray-700">
                     <div className="flex justify-between">
-                      <span>Size:</span>
+                      <span>QR Size:</span>
                       <span className="font-bold">{size}×{size}px</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Content Length:</span>
+                      <span>Final Size:</span>
+                      <span className="font-bold">{parseInt(size) + 80}×{parseInt(size) + 80}px</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Content:</span>
                       <span className="font-bold">{text.length} chars</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Format:</span>
-                      <span className="font-bold">PNG</span>
+                      <span className="font-bold">PNG + Frame</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Type:</span>
@@ -250,12 +334,12 @@ export default function QRGenerator() {
                 </div>
 
                 <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-3">
-                  <h3 className="text-xs font-bold text-gray-900 mb-2">✅ Usage Tips</h3>
+                  <h3 className="text-xs font-bold text-gray-900 mb-2">✅ Frame Features</h3>
                   <div className="text-xs text-gray-700 space-y-0.5">
-                    <p>• Test scanning before printing</p>
-                    <p>• Use high contrast backgrounds</p>
-                    <p>• Ensure adequate white space</p>
-                    <p>• Larger codes = easier scanning</p>
+                    <p>• Professional gradient border</p>
+                    <p>• White padding for easy scanning</p>
+                    <p>• Subtle shadow effect</p>
+                    <p>• "Scan Me" text included</p>
                   </div>
                 </div>
               </>
@@ -264,8 +348,8 @@ export default function QRGenerator() {
                 <div className="bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl p-8 text-center text-white shadow-lg">
                   <div className="text-5xl mb-3">📱</div>
                   <div className="text-sm font-semibold opacity-90 mb-3">Ready to Generate</div>
-                  <div className="text-6xl font-extrabold mb-2">⬜</div>
-                  <p className="text-sm opacity-90">Enter content and click Generate</p>
+                  <div className="text-6xl font-extrabold mb-2">🖼️</div>
+                  <p className="text-sm opacity-90">QR Code with Beautiful Frame</p>
                 </div>
 
                 <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl border-2 border-purple-200 p-6">
