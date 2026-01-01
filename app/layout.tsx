@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import GoogleAnalytics from '@/app/components/GoogleAnalytics'
-import Script from 'next/script'
+import GoogleAdSense from '@/app/components/GoogleAdSense'
 
 export const metadata: Metadata = {
+  verification: {
+    google: "bHJoiO-4JPsFsTXsklt1b942C1azKZJK6YsCNi6dkMw",
+  },
   title: "Free Online Calculators - Mortgage, BMI, Loan & More | Fluentools",
   description: "Free online calculators for mortgage, BMI, loan, discount, tip, and more. Fast, accurate, and private. No registration required.",
   keywords: "free calculator, online calculator, mortgage calculator, BMI calculator, loan calculator, discount calculator, tip calculator",
@@ -41,17 +44,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google Search Console Verification */}
-        <meta name="google-site-verification" content="bHJoiO-4JPsFsTXsklt1b942C1azKZJK6YsCNi6dkMw" />
-        
-        {/* Google AdSense */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8306567969058624"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-        
         {/* PERFORMANCE OPTIMIZATION: Preconnect to external domains */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
@@ -61,6 +53,9 @@ export default function RootLayout({
         
         {/* Google Analytics */}
         <GoogleAnalytics />
+        
+        {/* Google AdSense */}
+        <GoogleAdSense />
       </head>
       <body className="antialiased">
         {children}
