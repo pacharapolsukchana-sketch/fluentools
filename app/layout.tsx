@@ -6,9 +6,6 @@ export const metadata: Metadata = {
   verification: {
     google: "bHJoiO-4JPsFsTXsklt1b942C1azKZJK6YsCNi6dkMw",
   },
-  other: {
-    'google-adsense-account': 'ca-pub-8306567969058624',
-  },
   title: "Free Online Calculators - Mortgage, BMI, Loan & More | Fluentools",
   description: "Free online calculators for mortgage, BMI, loan, discount, tip, and more. Fast, accurate, and private. No registration required.",
   keywords: "free calculator, online calculator, mortgage calculator, BMI calculator, loan calculator, discount calculator, tip calculator",
@@ -46,8 +43,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google AdSense - Meta Tag Method */}
-        <meta name="google-adsense-account" content="ca-pub-8306567969058624" />
+        {/* Google AdSense - Meta Tag */}
+        <meta name="google-adsense-account" content="ca-pub-8308567969058624" />
         
         {/* PERFORMANCE OPTIMIZATION: Preconnect to external domains */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
