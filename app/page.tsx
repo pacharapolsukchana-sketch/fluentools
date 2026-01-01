@@ -21,13 +21,19 @@ export default function Home() {
 
   useEffect(() => {
     setMounted(true)
-    // Defer localStorage reads to after initial render
-    requestIdleCallback(() => {
+    // Load favorites immediately on mount
+    try {
       const savedFavorites = localStorage.getItem('favorites')
       const savedRecent = localStorage.getItem('recent')
-      if (savedFavorites) setFavorites(JSON.parse(savedFavorites))
-      if (savedRecent) setRecent(JSON.parse(savedRecent))
-    })
+      if (savedFavorites) {
+        setFavorites(JSON.parse(savedFavorites))
+      }
+      if (savedRecent) {
+        setRecent(JSON.parse(savedRecent))
+      }
+    } catch (error) {
+      console.error('Error loading favorites:', error)
+    }
   }, [])
 
   const toggleFavorite = (toolId: string) => {
