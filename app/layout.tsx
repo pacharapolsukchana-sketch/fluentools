@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import GoogleAnalytics from '@/app/components/GoogleAnalytics'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: "Free Online Calculators - Mortgage, BMI, Loan & More | Fluentools",
@@ -40,6 +41,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Google Search Console Verification */}
+        <meta name="google-site-verification" content="bHJoiO-4JPsFsTXsklt1b942C1azKZJK6YsCNi6dkMw" />
+        
+        {/* Google AdSense */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8306567969058624"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+        
         {/* PERFORMANCE OPTIMIZATION: Preconnect to external domains */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
