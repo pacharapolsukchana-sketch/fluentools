@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import GoogleAnalytics from '@/app/components/GoogleAnalytics'
-import GoogleAdSense from '@/app/components/GoogleAdSense'
 
 export const metadata: Metadata = {
   verification: {
     google: "bHJoiO-4JPsFsTXsklt1b942C1azKZJK6YsCNi6dkMw",
+  },
+  other: {
+    'google-adsense-account': 'ca-pub-8306567969058624',
   },
   title: "Free Online Calculators - Mortgage, BMI, Loan & More | Fluentools",
   description: "Free online calculators for mortgage, BMI, loan, discount, tip, and more. Fast, accurate, and private. No registration required.",
@@ -44,18 +46,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Google AdSense - Meta Tag Method */}
+        <meta name="google-adsense-account" content="ca-pub-8306567969058624" />
+        
         {/* PERFORMANCE OPTIMIZATION: Preconnect to external domains */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
         
         {/* Canonical URL */}
         <link rel="canonical" href="https://fluentools.com" />
         
         {/* Google Analytics */}
         <GoogleAnalytics />
-        
-        {/* Google AdSense */}
-        <GoogleAdSense />
       </head>
       <body className="antialiased">
         {children}
