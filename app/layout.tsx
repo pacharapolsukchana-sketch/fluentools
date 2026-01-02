@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import dynamic from 'next/dynamic'
-
-// Lazy load Google Analytics
-const GoogleAnalytics = dynamic(() => import('@/app/components/GoogleAnalytics'), {
-  ssr: false
-})
+import GoogleAnalytics from '@/app/components/GoogleAnalytics'
 
 export const metadata: Metadata = {
   verification: {
@@ -57,6 +52,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         {children}
+        {/* ย้าย Google Analytics มาไว้ท้ายสุด */}
         <GoogleAnalytics />
       </body>
     </html>
