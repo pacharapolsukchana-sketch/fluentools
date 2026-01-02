@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import GoogleAnalytics from '@/app/components/GoogleAnalytics'
+import dynamic from 'next/dynamic'
+
+// Lazy load Google Analytics
+const GoogleAnalytics = dynamic(() => import('@/app/components/GoogleAnalytics'), {
+  ssr: false
+})
 
 export const metadata: Metadata = {
   verification: {
@@ -43,23 +48,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google AdSense - Meta Tag */}
         <meta name="google-adsense-account" content="ca-pub-8308567969058624" />
-        
-        {/* PERFORMANCE OPTIMIZATION: Preconnect to external domains */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
-        
-        {/* Canonical URL */}
         <link rel="canonical" href="https://fluentools.com" />
-        
-        {/* Google Analytics */}
-        <GoogleAnalytics />
       </head>
       <body className="antialiased">
         {children}
+        <GoogleAnalytics />
       </body>
     </html>
   );
