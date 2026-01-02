@@ -2,7 +2,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* CRITICAL CSS - Keep minimal for faster First Paint */
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -15,7 +14,6 @@
   }
 }
 
-/* Base styles - optimized for performance */
 body {
   background: var(--background);
   color: var(--foreground);
@@ -31,16 +29,8 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.3;
 }
 
-/* Performance: Reduce layout shift */
 img {
   display: block;
   max-width: 100%;
   height: auto;
-}
-
-/* Performance: GPU acceleration for animations */
-@media (prefers-reduced-motion: no-preference) {
-  * {
-    scroll-behavior: smooth;
-  }
 }
