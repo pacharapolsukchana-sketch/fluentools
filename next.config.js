@@ -61,6 +61,14 @@ const nextConfig = {
       },
     ];
   },
+
+  // Remove legacy polyfills
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
+  },
+  
+  // Use SWC minifier (faster and removes polyfills)
+  swcMinify: true,
 }
 
 module.exports = nextConfig
