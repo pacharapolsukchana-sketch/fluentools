@@ -9,4 +9,7 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  // Optimize: Remove unused CSS
+  safelist: [],
+  blocklist: [],
 }
