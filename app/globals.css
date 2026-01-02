@@ -44,3 +44,12 @@ img {
     scroll-behavior: smooth;
   }
 }
+
+/* Optimize reflow and prevent forced layout */
+* {
+  content-visibility: auto;
+}
+
+body {
+  contain: layout style;
+}
