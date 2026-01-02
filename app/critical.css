@@ -1,8 +1,0 @@
-*,::after,::before{box-sizing:border-box;border:0 solid #e5e7eb}
-html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,sans-serif;tab-size:4}
-body{margin:0;line-height:inherit}
-h1,h2,h3{font-size:inherit;font-weight:inherit;margin:0}
-a{color:inherit;text-decoration:inherit}
-button,input{font:inherit;margin:0;padding:0}
-button{cursor:pointer;background:transparent;border:0}
-img,svg{display:inline-block;max-width:100%;height:auto}

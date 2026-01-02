@@ -9,8 +9,4 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-  // ลด CSS size
-  corePlugins: {
-    preflight: false, // ปิด preflight เพราะเรามี critical.css แล้ว
-  },
 }
