@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import GoogleAnalytics from '@/app/components/GoogleAnalytics'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   verification: {
@@ -46,14 +47,27 @@ export default function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-8308567969058624" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
-        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
         <link rel="canonical" href="https://fluentools.com" />
+        
+        {/* Critical CSS Inline */}
+        <style dangerouslySetInnerHTML={{__html: `
+          *,::before,::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}
+          html{line-height:1.5;-webkit-text-size-adjust:100%;font-family:ui-sans-serif,system-ui,sans-serif}
+          body{margin:0;line-height:inherit}
+          h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}
+          a{color:inherit;text-decoration:inherit}
+          button,input{font-family:inherit;font-size:100%;line-height:inherit;margin:0;padding:0}
+          button{cursor:pointer}
+          img,svg{display:block;vertical-align:middle}
+        `}} />
       </head>
       <body className="antialiased">
-        {children}
-        {/* ย้าย Google Analytics มาไว้ท้ายสุด */}
-        <GoogleAnalytics />
+        <Suspense fallback={null}>
+          {children}
+        </Suspense>
+        <Suspense fallback={null}>
+          <GoogleAnalytics />
+        </Suspense>
       </body>
     </html>
   );
