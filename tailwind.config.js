@@ -9,7 +9,8 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-  // Optimize: Remove unused CSS
-  safelist: [],
-  blocklist: [],
+  // ลด CSS size
+  corePlugins: {
+    preflight: false, // ปิด preflight เพราะเรามี critical.css แล้ว
+  },
 }
