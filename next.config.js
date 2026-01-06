@@ -11,29 +11,7 @@ const nextConfig = {
     minimumCacheTTL: 60,
   },
 
-  async redirects() {
-    return [
-      // Redirect www to non-www
-      {
-        source: '/:path*',
-        has: [
-          {
-            type: 'host',
-            value: 'www.fluentools.com',
-          },
-        ],
-        destination: 'https://fluentools.com/:path*',
-        permanent: true,
-      },
-      // Redirect HTTP to HTTPS
-      {
-        source: '/:path*',
-        has: [{ type: 'header', key: 'x-forwarded-proto', value: 'http' }],
-        destination: 'https://fluentools.com/:path*',
-        permanent: true,
-      },
-    ];
-  },
+  // ลบส่วน redirects ทั้งหมดออก
 
   async headers() {
     return [
