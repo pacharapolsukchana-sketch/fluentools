@@ -45,8 +45,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'mortgage',
     'loan',
     'discount',
-    'roi',
-    'compound-interest',
   ].map((slug) => ({
     url: `${baseUrl}/finance/${slug}`,
     lastModified: currentDate,
@@ -60,7 +58,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'calorie',
     'age',
     'pregnancy',
-    'bmi-女性',
+    'period',
   ].map((slug) => ({
     url: `${baseUrl}/health/${slug}`,
     lastModified: currentDate,
@@ -71,9 +69,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Converters
   const converters = [
     'currency',
-    'unit',
-    'time-zone',
     'temperature',
+    'weight',
+    'length',
   ].map((slug) => ({
     url: `${baseUrl}/converters/${slug}`,
     lastModified: currentDate,
@@ -86,7 +84,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'qr',
     'password',
     'random-number',
-    'uuid',
+    'card-shuffler',
+    'dice-roller',
+    'random-picker',
   ].map((slug) => ({
     url: `${baseUrl}/generators/${slug}`,
     lastModified: currentDate,
@@ -98,7 +98,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const calculators = [
     'percentage',
     'ratio',
-    'fraction',
   ].map((slug) => ({
     url: `${baseUrl}/calculators/${slug}`,
     lastModified: currentDate,
@@ -108,8 +107,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Business calculators
   const businessCalculators = [
-    'margin',
-    'markup',
+    'salary',
+    'tax',
   ].map((slug) => ({
     url: `${baseUrl}/business/${slug}`,
     lastModified: currentDate,
@@ -120,7 +119,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Date/Time tools
   const datetimeTools = [
     'date-calculator',
-    'days-between',
+    'time-calculator',
   ].map((slug) => ({
     url: `${baseUrl}/datetime/${slug}`,
     lastModified: currentDate,
@@ -131,7 +130,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Text tools
   const textTools = [
     'word-counter',
-    'character-counter',
   ].map((slug) => ({
     url: `${baseUrl}/text/${slug}`,
     lastModified: currentDate,
