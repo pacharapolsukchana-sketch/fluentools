@@ -11,8 +11,6 @@ const nextConfig = {
     minimumCacheTTL: 60,
   },
 
-  // ลบส่วน redirects ทั้งหมดออก
-
   async headers() {
     return [
       {
