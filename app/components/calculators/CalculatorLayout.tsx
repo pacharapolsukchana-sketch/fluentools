@@ -33,7 +33,6 @@ export default function CalculatorLayout({
 }: CalculatorLayoutProps) {
   return (
     <MainLayout>
-      {/* RESPONSIVE CONTAINER - ใช้ w-full และ max-w ที่เหมาะสม */}
       <div className="w-full mx-auto px-3 md:px-4 lg:px-6 py-4 md:py-6 max-w-7xl">
         
         <Breadcrumb items={breadcrumbs} />
@@ -45,45 +44,53 @@ export default function CalculatorLayout({
           gradient={gradient}
         />
 
-        {/* MAIN GRID - responsive ตามขนาดหน้าจอ */}
+        {/* Top Ad - Horizontal Banner - Desktop only */}
+        <AdSpace 
+          slot="4008645655" 
+          format="horizontal"
+          hideOnMobile={true}
+        />
+
+        {/* MAIN GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6 mb-6">
           
-          {/* CALCULATOR CONTENT - responsive padding */}
-          <div className="lg:col-span-10 space-y-4 md:space-y-6">
+          {/* CALCULATOR CONTENT */}
+          <div className="lg:col-span-9 space-y-4 md:space-y-6">
             <div className="bg-white rounded-lg border-2 border-gray-100 p-3 md:p-4 lg:p-6 shadow-sm">
               {children}
             </div>
 
-            {/* Ad - Desktop only */}
-            <div className="hidden lg:block">
-              <AdSpace slot="horizontal" />
+            {/* In-content Ad - Mobile & Tablet */}
+            <div className="lg:hidden">
+              <AdSpace 
+                slot="4008645655" 
+                format="rectangle"
+              />
             </div>
           </div>
 
           {/* SIDEBAR AD - Desktop only */}
-          <div className="lg:col-span-2 hidden lg:block">
-            <div className="sticky top-20">
-              <AdSpace slot="square" />
+          <div className="lg:col-span-3 hidden lg:block">
+            <div className="sticky top-20 space-y-4">
+              <AdSpace 
+                slot="4008645655" 
+                format="rectangle"
+              />
             </div>
           </div>
         </div>
 
-        {/* Ad - Mobile only */}
-        <div className="lg:hidden mb-4 md:mb-6">
-          <AdSpace slot="square" />
-        </div>
-
-        {/* RELATED TOOLS - responsive grid */}
+        {/* RELATED TOOLS */}
         {relatedTools && relatedTools.length > 0 && (
           <RelatedTools tools={relatedTools} />
         )}
 
-        {/* FEATURES - responsive grid */}
+        {/* FEATURES */}
         {features && features.length > 0 && (
           <FeatureCards features={features} />
         )}
 
-        {/* SEO CONTENT - responsive padding */}
+        {/* SEO CONTENT */}
         {seoContent && (
           <div className="mb-4 md:mb-6 prose prose-sm md:prose-base prose-gray max-w-none">
             <div className="bg-white rounded-lg border-2 border-gray-100 p-3 md:p-4 lg:p-6">
@@ -92,14 +99,17 @@ export default function CalculatorLayout({
           </div>
         )}
 
-        {/* FAQ - responsive */}
+        {/* FAQ */}
         {faqs && faqs.length > 0 && (
           <FAQSection faqs={faqs} />
         )}
 
-        {/* Bottom Ad - hide on mobile */}
-        <div className="mt-4 md:mt-6 hidden md:block">
-          <AdSpace slot="horizontal" />
+        {/* Bottom Ad - Horizontal Banner - All devices */}
+        <div className="mt-4 md:mt-6">
+          <AdSpace 
+            slot="4008645655" 
+            format="horizontal"
+          />
         </div>
 
       </div>
