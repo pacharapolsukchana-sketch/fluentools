@@ -10,9 +10,13 @@ export const metadata: Metadata = {
   description: "Free online calculators for mortgage, BMI, loan, discount, tip, and more. Fast, accurate, and private. No registration required.",
   keywords: "free calculator, online calculator, mortgage calculator, BMI calculator, loan calculator, discount calculator, tip calculator",
   authors: [{ name: "Fluentools" }],
+  alternates: {
+    canonical: "https://fluentools.com",
+  },
   openGraph: {
     title: "Free Online Calculators - Mortgage, BMI, Loan & More",
     description: "Fast, accurate, and free online calculators. No registration required.",
+    url: "https://fluentools.com",
     type: "website",
     locale: "en_US",
     siteName: "Fluentools",
@@ -46,7 +50,7 @@ export default function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-8308567969058624" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
-        <link rel="canonical" href="https://fluentools.com" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className="antialiased">
         {children}

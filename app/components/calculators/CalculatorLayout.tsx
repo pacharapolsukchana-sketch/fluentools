@@ -1,5 +1,4 @@
 import MainLayout from '../layout/MainLayout'
-import Breadcrumb, { BreadcrumbItem } from '../common/Breadcrumb'
 import HeroSection from '../common/HeroSection'
 import FeatureCards, { FeatureItem } from '../common/FeatureCards'
 import RelatedTools, { RelatedTool } from '../common/RelatedTools'
@@ -11,7 +10,7 @@ interface CalculatorLayoutProps {
   description: string
   icon?: string
   gradient?: string
-  breadcrumbs: BreadcrumbItem[]
+  breadcrumbs?: any // Keep for compatibility but won't use
   children: React.ReactNode
   features?: FeatureItem[]
   relatedTools?: RelatedTool[]
@@ -24,7 +23,6 @@ export default function CalculatorLayout({
   description,
   icon,
   gradient,
-  breadcrumbs,
   children,
   features,
   relatedTools,
@@ -34,8 +32,6 @@ export default function CalculatorLayout({
   return (
     <MainLayout>
       <div className="w-full mx-auto px-3 md:px-4 lg:px-6 py-4 md:py-6 max-w-7xl">
-        
-        <Breadcrumb items={breadcrumbs} />
         
         <HeroSection
           icon={icon}

@@ -61,10 +61,13 @@ export default function Header() {
           <div className="flex items-center justify-between h-12">
             <Link 
               href="/" 
-              className="text-base md:text-lg font-bold text-blue-600 hover:text-blue-700 transition flex items-center gap-1.5"
+              className="flex items-center hover:opacity-80 transition"
             >
-              <span className="text-lg">🛠️</span>
-              <span>Fluentools</span>
+              <img 
+                src="/logo.svg" 
+                alt="Fluentools - Free Online Calculators" 
+                className="h-8 md:h-10 w-auto"
+              />
             </Link>
 
             {/* Mobile Menu Button */}
