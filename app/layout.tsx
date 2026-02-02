@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import GoogleAnalytics from '@/app/components/GoogleAnalytics'
+import GoogleAdSense from '@/app/components/GoogleAdSense'
 
 export const metadata: Metadata = {
   verification: {
@@ -53,6 +54,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className="antialiased">
+        <GoogleAdSense />
         {children}
         <GoogleAnalytics />
       </body>
