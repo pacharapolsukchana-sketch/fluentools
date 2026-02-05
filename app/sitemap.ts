@@ -1,4 +1,3 @@
-// app/sitemap.ts
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -14,16 +13,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/privacy-policy`,
+      url: `${baseUrl}/about`,
       lastModified: currentDate,
       changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/terms-of-service`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
+      priority: 0.6,
     },
     {
       url: `${baseUrl}/contact`,
@@ -32,30 +25,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/about`,
+      url: `${baseUrl}/privacy-policy`,
       lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
-      priority: 0.6,
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/terms-of-service`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
     },
   ]
 
   // Finance calculators
   const financeCalculators = [
+    'mortgage',    // High priority
+    'loan',        // High priority
     'tip',
-    'mortgage',
-    'loan',
     'discount',
   ].map((slug) => ({
     url: `${baseUrl}/finance/${slug}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
-    priority: 0.9,
+    priority: slug === 'mortgage' || slug === 'loan' ? 0.9 : 0.8,
   }))
 
   // Health calculators
   const healthCalculators = [
-    'bmi',
-    'calorie',
+    'bmi',        // High priority
+    'calorie',    // High priority
     'age',
     'pregnancy',
     'period',
@@ -63,38 +62,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}/health/${slug}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
-    priority: 0.9,
+    priority: slug === 'bmi' || slug === 'calorie' ? 0.9 : 0.7,
   }))
 
   // Converters
   const converters = [
-    'currency',
+    'currency',     // High priority
     'temperature',
     'weight',
     'length',
   ].map((slug) => ({
     url: `${baseUrl}/converters/${slug}`,
     lastModified: currentDate,
-    changeFrequency: 'daily' as const,
-    priority: 0.9,
+    changeFrequency: slug === 'currency' ? 'daily' as const : 'weekly' as const,
+    priority: slug === 'currency' ? 0.9 : 0.7,
   }))
 
-  // Generators
-  const generators = [
-    'qr',
-    'password',
-    'random-number',
-    'card-shuffler',
-    'dice-roller',
-    'random-picker',
-  ].map((slug) => ({
-    url: `${baseUrl}/generators/${slug}`,
-    lastModified: currentDate,
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }))
-
-  // Calculators
+  // Basic calculators
   const calculators = [
     'percentage',
     'ratio',
@@ -102,7 +86,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}/calculators/${slug}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
-    priority: 0.9,
+    priority: 0.8,
   }))
 
   // Business calculators
@@ -124,7 +108,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}/datetime/${slug}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,
-    priority: 0.8,
+    priority: 0.7,
+  }))
+
+  // Generators
+  const generators = [
+    'qr',
+    'password',
+    'random-number',
+    'random-picker',
+    'dice-roller',
+    'card-shuffler',
+  ].map((slug) => ({
+    url: `${baseUrl}/generators/${slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: slug === 'qr' || slug === 'password' ? 0.8 : 0.7,
   }))
 
   // Text tools
@@ -142,10 +141,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...financeCalculators,
     ...healthCalculators,
     ...converters,
-    ...generators,
     ...calculators,
     ...businessCalculators,
     ...datetimeTools,
+    ...generators,
     ...textTools,
   ]
 }

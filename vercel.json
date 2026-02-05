@@ -1,0 +1,16 @@
+{
+  "redirects": [
+    {
+      "source": "/:path((?!.*\\.).*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.fluentools.com"
+        }
+      ],
+      "destination": "https://fluentools.com/:path*",
+      "permanent": true
+    }
+  ],
+  "trailingSlash": false
+}

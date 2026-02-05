@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   verification: {
     google: "bHJoiO-4JPsFsTXsklt1b942C1azKZJK6YsCNi6dkMw",
   },
-  title: "Free Online Calculators - Mortgage, BMI, Loan & More | Fluentools",
+  title: "Fluentools: Free Online Calculators - Mortgage, BMI, Loan",
   description: "Free online calculators for mortgage, BMI, loan, discount, tip, and more. Fast, accurate, and private. No registration required.",
   keywords: "free calculator, online calculator, mortgage calculator, BMI calculator, loan calculator, discount calculator, tip calculator",
   authors: [{ name: "Fluentools" }],
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     canonical: "https://fluentools.com",
   },
   openGraph: {
-    title: "Free Online Calculators - Mortgage, BMI, Loan & More",
+    title: "Fluentools: Free Online Calculators - Mortgage, BMI, Loan",
     description: "Fast, accurate, and free online calculators. No registration required.",
     url: "https://fluentools.com",
     type: "website",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online Calculators | Fluentools",
+    title: "Fluentools: Free Online Calculators - Mortgage, BMI, Loan",
     description: "Fast, accurate, and free online calculators. No registration required.",
   },
   robots: {
@@ -51,7 +51,12 @@ export default function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-8308567969058624" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        {/* Favicon - ICO first for Google Search, then modern icons */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+        <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className="antialiased">
         <GoogleAdSense />
