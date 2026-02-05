@@ -51,8 +51,9 @@ export default function RootLayout({
         <meta name="google-adsense-account" content="ca-pub-8308567969058624" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
-        {/* Favicon - ICO first for Google Search, then modern icons */}
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        {/* Favicon - SVG for modern browsers, ICO for older browsers */}
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
         <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
         <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
